@@ -1,36 +1,43 @@
 import React, { Component } from 'react';
-import ReactDOM from "react-dom"
-import logo from './logo.svg';
-import './App.css';
 
-import StudentForm from './components/StudentForm';
-import Modal from './components/Modal'
+import Teacher from './Teacher';
 
 class App extends Component {
 
-  handleCLick = () => {
+  state = {
+    teacher: ''
+  };
 
-    let modal = document.querySelector('.modal');
-    modal.removeAttribute('class');
-    modal.setAttribute('class', 'modalRemove');
+  updateTeacher = teacher => {
+    const newTeacher = teacher;
+    this.setState(state => {
+      if (state.teacher === newTeacher) {
+        return null;
+      }
+      else {
+        return { teacher };
+      }
+    });
   }
 
   render() {
+    const teachers = ['jay', 'vivianne', 'ecma', 'json'];
+
     return (
-      <div className="App" onClick={this.handleCLick}>
-
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div className="App">
+        <header>
+          <h1>Meet the Teachers</h1>
+          {teachers.map((teacher, i) =>
+            <button
+              key={teacher}
+              type="button"
+              value={teacher}
+              onClick={e => this.updateTeacher(e.target.value)}
+            >{teacher}
+            </button>)}
         </header>
-        <StudentForm />
 
-        <Modal>
-          <div className='modal'>
-            This is the modal window
-            <button>Close</button>
-          </div>
-        </Modal>
+        <Teacher teacher={this.state.teacher} />
       </div>
     );
   }

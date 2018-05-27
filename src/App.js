@@ -9,7 +9,10 @@ import Modal from './components/Modal'
 class App extends Component {
 
   handleCLick = () => {
-    console.log('I was clicked')
+
+    let modal = document.querySelector('.modal');
+    modal.removeAttribute('class');
+    modal.setAttribute('class', 'modalRemove');
   }
 
   render() {
